@@ -1,0 +1,136 @@
+"use client"
+
+import { useState } from "react"
+import Link from "next/link"
+import Image from "next/image"
+import { motion } from "framer-motion"
+import { Clock, Star, Leaf, Drumstick } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { cn } from "@/lib/utils"
+
+interface RecipeCardProps {
+  title: string
+  image: string
+  category: string
+  prepTime: string
+  difficulty: string
+  rating: number
+  href: string
+  isVeg: boolean
+  showVegBadge?: boolean
+}
+
+export default function RecipeCard({
+  title,
+  image,
+  category,
+  prepTime,
+  difficulty,
+  rating,
+  href,
+  isVeg,
+  showVegBadge = false,
+}: RecipeCardProps) {
+  const [isHovered, setIsHovered] = useState(false)
+
+  return (
+    <Link href={href} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+      <motion.div
+        className="group bg-card dark:bg-card/80 rounded-2xl overflow-hidden border border-border/50 shadow-sm h-full w-72"
+        whileHover={{
+          y: -10,
+          transition: { type: "spring", stiffness: 300 },
+        }}
+      >
+        <div className="relative aspect-video overflow-hidden">
+          <Image
+            src={"/placeholder.svg"}
+            alt={title}
+            fill
+            className={cn("object-cover transition-transform duration-700", isHovered ? "scale-110" : "scale-100")}
+          />
+          <div className="absolute top-3 left-3 z-10 flex gap-2">
+            <Badge className="bg-rose-500 hover:bg-rose-600 text-white border-none">{category}</Badge>
+
+            {showVegBadge && (
+              <Badge
+                className={cn(
+                  "border-none text-white",
+                  isVeg ? "bg-green-500 hover:bg-green-600" : "bg-amber-600 hover:bg-amber-700",
+                )}
+              >
+                {isVeg ? (
+                  <span className="flex items-center">
+                    <Leaf size={12} className="mr-1" />
+                    Veg
+                  </span>
+                ) : (
+                  <span className="flex items-center">
+                    <Drumstick size={12} className="mr-1" />
+                    Non-Veg
+                  </span>
+                )}
+              </Badge>
+            )}
+          </div>
+
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0"
+            animate={{ opacity: isHovered ? 1 : 0 }}
+            transition={{ duration: 0.3 }}
+          />
+
+          <motion.div
+            className="absolute bottom-3 right-3 z-10"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{
+              opacity: isHovered ? 1 : 0,
+              scale: isHovered ? 1 : 0.8,
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.div
+              className="bg-white/10 backdrop-blur-md rounded-full px-3 py-1 text-white text-sm font-medium flex items-center"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              View Recipe
+            </motion.div>
+          </motion.div>
+        </div>
+
+        <div className="p-4">
+          <h3 className="font-semibold text-lg line-clamp-1 group-hover:text-rose-500 transition-colors">{title}</h3>
+
+          <div className="flex items-center justify-between mt-2 text-sm text-muted-foreground">
+            <div className="flex items-center">
+              <Clock size={14} className="mr-1" />
+              {prepTime}
+            </div>
+            <div>{difficulty}</div>
+          </div>
+
+          <div className="flex items-center mt-3">
+            <div className="flex items-center">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  size={14}
+                  className={cn(
+                    "fill-current",
+                    i < Math.floor(rating)
+                      ? "text-amber-400"
+                      : i < rating
+                        ? "text-amber-400/50"
+                        : "text-muted-foreground/30",
+                  )}
+                />
+              ))}
+            </div>
+            <span className="ml-2 text-sm font-medium">{rating.toFixed(1)}</span>
+          </div>
+        </div>
+      </motion.div>
+    </Link>
+  )
+}
