@@ -8,38 +8,32 @@ export async function POST(request: Request) {
     try {
         const {username, email, password} = await request.json()
         const verifyCode = Math.floor(100000 + Math.random() * 900000).toString()
-        const exitedUserVerified = await UserModel.findOne({
-            username,
-            isVerified: true
+
+        // Check for existing user by username or email
+        const existingUser = await UserModel.findOne({
+            $or: [{username}, {email}]
         })
-        console.log("Existing user: ", exitedUserVerified)
-        if(exitedUserVerified) {
-            return Response.json({
-                success: false,
-                message: "Username already exist"
-            }, {status: 400})
-        }
-        
-        const existUserWithEmail = await UserModel.findOne({email})
 
-        if(existUserWithEmail) {
-            if(existUserWithEmail.isVerified) {
+        console.log("Existing user: ", existingUser)
+
+        if (existingUser) {
+            if (existingUser.isVerified) {
                 return Response.json({
-                    success: true,
-                    message: "User already exist with verification"
-                }, {status: 200})
+                    success: false,
+                    message: "User already exists and is verified"
+                }, {status: 400})
+            } else {
+                // Update unverified user with new details
+                const hashPassword = await bcrypt.hash(password, 10);
+                existingUser.password = hashPassword;
+                existingUser.verifyCode = verifyCode;
+                existingUser.email = email;
+                existingUser.verifyCodeExpiry = new Date(Date.now() + 3600000);
+                await existingUser.save();
+                console.log("Updated existing unverified user: ", existingUser);
             }
-
-            const hashPassword = await bcrypt.hash(password, 10);
-            existUserWithEmail.password = hashPassword;
-            existUserWithEmail.verifyCode = verifyCode
-            existUserWithEmail.verifyCodeExpiry = new Date(Date.now() + 3600000)
-
-
-            await existUserWithEmail.save()
-            console.log("All done with exist email user: ", existUserWithEmail)
-        }
-        else {
+        } else {
+            // Create new user
             const hashPassword = await bcrypt.hash(password, 10)
             const expiryDate = new Date();
             expiryDate.setHours(expiryDate.getHours() + 1)
@@ -54,7 +48,7 @@ export async function POST(request: Request) {
             })
 
             await newUser.save()
-            console.log("All done with newuser: ", newUser)
+            console.log("Created new user: ", newUser)
         }
 
         const emailResponse = await SendVerificationCode(email, username, verifyCode)

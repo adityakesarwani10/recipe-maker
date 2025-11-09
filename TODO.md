@@ -1,8 +1,4 @@
-# TODO: Move Navbar Rendering from layout.tsx to page.tsx
+# TODO: Fix Duplicate Key Error in Sign-Up
 
-## Steps to Complete
-
-- [x] Edit app/layout.tsx: Remove the import statement for Navbar and the <Navbar /> JSX element from the layout structure.
-- [x] Edit app/page.tsx: Add the import for Navbar and render <Navbar /> at the beginning of the component's return statement, before the existing content.
-- [ ] Test the changes: Run the development server and verify the Navbar appears on the home page and not on other pages.
-- [ ] Check for layout or styling issues due to the structural change.
+- [x] Remove unique constraint from username in model/user.model.ts
+- [x] Update sign-up logic in app/api/sign-up/route.ts to allow reusing unverified usernames
