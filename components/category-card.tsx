@@ -35,8 +35,7 @@ export default function CategoryCard({ name, image, count, href, icon, className
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
 
         <Image
-          // src={image || "/placeholder.svg"}
-          src={"/placeholder.svg"}
+          src={image || "/placeholder.svg"}
           alt={name}
           fill
           className={cn("object-cover transition-transform duration-700", isHovered ? "scale-110" : "scale-100")}

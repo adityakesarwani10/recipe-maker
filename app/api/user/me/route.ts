@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
     }
 
     const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!) as any;
-    console.log("Decoded Token in /api/user/me:", decodedToken);
+    // console.log("Decoded Token in /api/user/me:", decodedToken);
     const user = await UserModel.findById(decodedToken._id).select('-password -refreshToken -verifyCode -verifyCodeExpiry');
 
     if (!user) {

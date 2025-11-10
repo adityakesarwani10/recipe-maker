@@ -10,7 +10,7 @@ export default function Footer() {
           <div>
             <Link href="/" className="flex items-center gap-2 mb-6">
               <div className="relative w-10 h-10">
-                <Image src="/images/logo.png" alt="Cuisine Logo" fill className="object-contain" />
+                <Image src="/logo.png" alt="Cuisine Logo" fill className="object-contain" />
               </div>
               <span className="font-bold text-2xl">Cuisine</span>
             </Link>
@@ -126,10 +126,8 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold text-xl mb-6">Contact Us</h3>
             <address className="not-italic text-muted-foreground space-y-4">
-              <p>123 Recipe Street</p>
-              <p>Foodville, FK 12345</p>
-              <p>Email: info@cuisine.com</p>
-              <p>Phone: (123) 456-7890</p>
+              <p>Email: adityakesarwani@gmail.com</p>
+              <p>Phone: (+91) 91400 40247</p>
             </address>
           </div>
         </div>

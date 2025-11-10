@@ -17,7 +17,7 @@ const featuredRecipes = [
     chef: "Gordon Ramsay",
     time: "30 min",
     category: "Seafood",
-    href: "/recipes/creamy-garlic-tuscan-salmon",
+    href: "/recipes/garlic-tuscan-salmon",
     isVeg: false,
   },
   {
@@ -28,7 +28,7 @@ const featuredRecipes = [
     chef: "Jamie Oliver",
     time: "45 min",
     category: "Thai",
-    href: "/recipes/authentic-thai-green-curry",
+    href: "/recipes/thai-green-curry",
     isVeg: false,
   },
   {

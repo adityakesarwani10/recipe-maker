@@ -36,9 +36,9 @@ interface Recipe {
 }
 
 interface RecipePageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  }
+  }>
 }
 
 export default function RecipePage({ params }: RecipePageProps) {
@@ -53,10 +53,8 @@ export default function RecipePage({ params }: RecipePageProps) {
     const fetchRecipe = async () => {
       try {
         setLoading(true)
-        const response = await axios.get(
-            `/api/v1/recipes/${slug}`
-          );
-        if (!response.success) {
+        const response = await axios.get(`/api/recipes/${slug}`);
+        if (response.status !== 200) {
           if (response.status === 404) {
             setError("Recipe not found")
             return
@@ -64,7 +62,7 @@ export default function RecipePage({ params }: RecipePageProps) {
           throw new Error(`HTTP error! status: ${response.status}`)
         }
 
-        const data = await response.json()
+        const data = response.data
         console.log(data)
         console.log(data.message?.image)
         if (data.success) {
@@ -250,8 +248,13 @@ export default function RecipePage({ params }: RecipePageProps) {
                   <iframe
                     width="100%"
                     height="100%"
-                    src={recipe.message?.videoUrl}
-                    title="Recipe Video"
+                    src={
+                    recipe.message?.videoUrl
+                      ? recipe.message.videoUrl
+                          .replace("watch?v=", "embed/")
+                          .replace("youtu.be/", "www.youtube.com/embed/")
+                      : ""
+                  }title="Recipe Video"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen

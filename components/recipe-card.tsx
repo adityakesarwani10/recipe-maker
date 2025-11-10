@@ -44,7 +44,7 @@ export default function RecipeCard({
       >
         <div className="relative aspect-video overflow-hidden">
           <Image
-            src={"/placeholder.svg"}
+            src={image}
             alt={title}
             fill
             className={cn("object-cover transition-transform duration-700", isHovered ? "scale-110" : "scale-100")}

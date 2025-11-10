@@ -28,42 +28,42 @@ export default function Home() {
   const categories = [
     {
       name: "Indian",
-      image: "/images/categories/indian.jpg",
+      image: "/indian.jpg",
       count: 120,
       href: "/categories/indian",
       icon: "/images/icons/indian-icon.png"
     },
     {
       name: "Italian",
-      image: "/images/categories/italian.jpg",
+      image: "/italian.jpg",
       count: 85,
       href: "/categories/italian",
       icon: "/images/icons/italian-icon.png"
     },
     {
       name: "Chinese",
-      image: "/images/categories/chinese.jpg",
+      image: "/chinese.jpg",
       count: 95,
       href: "/categories/chinese",
       icon: "/images/icons/chinese-icon.png"
     },
     {
       name: "Mexican",
-      image: "/images/categories/mexican.jpg",
+      image: "/mexican.jpg",
       count: 75,
       href: "/categories/mexican",
       icon: "/images/icons/mexican-icon.png"
     },
     {
       name: "Desserts",
-      image: "/images/categories/desserts.jpg",
+      image: "/dessert.jpg",
       count: 110,
       href: "/categories/desserts",
       icon: "/images/icons/dessert-icon.png"
     },
     {
       name: "Street Food",
-      image: "/images/categories/street-food.jpg",
+      image: "/street-food.jpg",
       count: 65,
       href: "/categories/street-food",
       icon: "/images/icons/street-food-icon.png"
@@ -73,7 +73,7 @@ export default function Home() {
   const trendingRecipes = [
     {
       title: "Spicy Chicken Pasta",
-      image: "/images/recipes/spicy-chicken-pasta.jpg",
+      image: "/spicy-chicken-pasta.jpg",
       category: "Italian",
       prepTime: "30 min",
       difficulty: "Medium",
@@ -84,7 +84,7 @@ export default function Home() {
     },
     {
       title: "Crispy Chicken Burger",
-      image: "/images/recipes/crispy-chicken-burger.jpg",
+      image: "/crispy-chicken-burger.jpg",
       category: "Fast Food",
       prepTime: "25 min",
       difficulty: "Easy",
@@ -95,7 +95,7 @@ export default function Home() {
     },
     {
       title: "Vegetable Biryani",
-      image: "/images/recipes/vegetable-biryani.jpg",
+      image: "/vegetable-biryani.jpg",
       category: "Indian",
       prepTime: "45 min",
       difficulty: "Medium",
@@ -106,7 +106,7 @@ export default function Home() {
     },
     {
       title: "Chinese Wok Noodles",
-      image: "/images/recipes/chinese-wok.jpg",
+      image: "/chinese-wok.jpg",
       category: "Chinese",
       prepTime: "20 min",
       difficulty: "Easy",
@@ -117,7 +117,7 @@ export default function Home() {
     },
     {
       title: "Chocolate Lava Cake",
-      image: "/images/recipes/chocolate-lava-cake.jpg",
+      image: "/chocolate-lava-cake.jpg",
       category: "Desserts",
       prepTime: "40 min",
       difficulty: "Medium",
@@ -128,7 +128,7 @@ export default function Home() {
     },
     {
       title: "Butter Chicken",
-      image: "/images/recipes/butter-chicken.jpg",
+      image: "/butter-chicken.jpg",
       category: "Indian",
       prepTime: "50 min",
       difficulty: "Medium",
@@ -142,7 +142,7 @@ export default function Home() {
   const breakfastRecipes = [
     {
       title: "Avocado Toast",
-      image: "/images/recipes/avocado-toast.jpg",
+      image: "/avocado-toast.jpg",
       category: "Breakfast",
       prepTime: "15 min",
       difficulty: "Easy",
@@ -153,7 +153,7 @@ export default function Home() {
     },
     {
       title: "Eggs Benedict",
-      image: "/images/recipes/eggs-benedict.jpg",
+      image: "/eggs-benedict.jpg",
       category: "Breakfast",
       prepTime: "25 min",
       difficulty: "Medium",
@@ -164,7 +164,7 @@ export default function Home() {
     },
     {
       title: "Pancakes with Berries",
-      image: "/images/recipes/pancakes.jpg",
+      image: "/pancakes.jpg",
       category: "Breakfast",
       prepTime: "20 min",
       difficulty: "Easy",
@@ -175,7 +175,7 @@ export default function Home() {
     },
     {
       title: "Breakfast Burrito",
-      image: "/images/recipes/breakfast-burrito.jpg",
+      image: "/breakfast-burrito.jpg",
       category: "Breakfast",
       prepTime: "25 min",
       difficulty: "Medium",
@@ -186,7 +186,7 @@ export default function Home() {
     },
     {
       title: "Smoothie Bowl",
-      image: "/images/recipes/smoothie-bowl.jpg",
+      image: "/smoothie-bowl.jpg",
       category: "Breakfast",
       prepTime: "10 min",
       difficulty: "Easy",
@@ -197,7 +197,7 @@ export default function Home() {
     },
     {
       title: "French Toast",
-      image: "/images/recipes/french-toast.jpg",
+      image: "/french-toast.jpg",
       category: "Breakfast",
       prepTime: "20 min",
       difficulty: "Easy",

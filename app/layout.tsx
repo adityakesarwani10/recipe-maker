@@ -25,7 +25,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <AppProvider>
-            <div className="flex flex-col min-h-screen mb-4">
+            <div className="flex flex-col min-h-screen ">
               <NavSwitcher />
               <main className="flex-1">
                 {children}
