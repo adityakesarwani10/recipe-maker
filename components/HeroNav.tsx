@@ -230,45 +230,45 @@ export default function HeroNav() {
                   <div className="p-6">
                     <Link href="/" className="flex items-center gap-2 mb-8">
                       <div className="relative w-10 h-10">
-                        <Image src="/images/logo.png" alt="Cuisine Logo" fill className="object-contain" />
+                        <Image src="/logo.png" alt="Cuisine Logo" fill className="object-contain" />
                       </div>
                       <span className="font-bold text-2xl">Cuisine</span>
                     </Link>
 
-                    <nav className="flex flex-col gap-4">
+                    <nav className="flex flex-col gap-3">
                       <Link
                         href="/"
-                        className="flex items-center text-lg font-medium p-2 hover:bg-muted rounded-lg transition-colors"
+                        className="flex items-center text-sm font-medium p-2 hover:bg-muted rounded-lg transition-colors"
                       >
                         Home
                       </Link>
                       <Link
                         href="/categories"
-                        className="flex items-center text-lg font-medium p-2 hover:bg-muted rounded-lg transition-colors"
+                        className="flex items-center text-sm font-medium p-2 hover:bg-muted rounded-lg transition-colors"
                       >
                         Categories
                       </Link>
                       <Link
                         href="/about"
-                        className="flex items-center text-lg font-medium p-2 hover:bg-muted rounded-lg transition-colors"
+                        className="flex items-center text-sm font-medium p-2 hover:bg-muted rounded-lg transition-colors"
                       >
                         About
                       </Link>
                       <Link
                         href="/contact"
-                        className="flex items-center text-lg font-medium p-2 hover:bg-muted rounded-lg transition-colors"
+                        className="flex items-center text-sm font-medium p-2 hover:bg-muted rounded-lg transition-colors"
                       >
                         Contact
                       </Link>
 
-                      <div className="border-t my-4 pt-4">
+                      <div className="border-t my-2 pt-2">
                         {currentUser ? (
                           <div className="space-y-3">
                             <div className="flex flex-col space-y-1 px-2 py-2">
                               <div className="font-semibold text-base text-foreground">
                                 {currentUser.username?.charAt(0).toUpperCase() + currentUser.username?.slice(1)}
                               </div>
-                              <div className="text-muted-foreground text-sm font-medium">
+                              <div className="text-muted-foreground text-xs font-medium">
                                 {currentUser.email}
                               </div>
                             </div>

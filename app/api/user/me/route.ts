@@ -2,23 +2,81 @@ import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 import { dbconnect } from '@/lib/dbconnect';
 import UserModel from '@/model/user.model';
+import { generateAccessAndRefreshToken } from '@/helpers/auth';
 
 export async function GET(request: NextRequest) {
   try {
     await dbconnect();
 
-    const token = request.cookies.get('accessToken')?.value;
+    let token = request.cookies.get('accessToken')?.value;
+    let user;
 
-    if (!token) {
-      return NextResponse.json(
-        { success: false, message: 'No token provided' },
-        { status: 401 }
-      );
+    if (token) {
+      try {
+        const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!) as any;
+        user = await UserModel.findById(decodedToken._id).select('-password -refreshToken -verifyCode -verifyCodeExpiry');
+      } catch (error: any) {
+        // Access token is invalid or expired, try refresh token
+        console.log('Access token invalid, attempting refresh');
+        token = '';
+      }
     }
 
-    const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!) as any;
-    // console.log("Decoded Token in /api/user/me:", decodedToken);
-    const user = await UserModel.findById(decodedToken._id).select('-password -refreshToken -verifyCode -verifyCodeExpiry');
+    if (!token) {
+      // Try to refresh using refresh token
+      const refreshToken = request.cookies.get('refreshToken')?.value;
+
+      if (!refreshToken) {
+        return NextResponse.json(
+          { success: false, message: 'Session expired, please login again' },
+          { status: 401 }
+        );
+      }
+
+      try {
+        const decodedRefreshToken = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!) as any;
+        const userWithRefreshToken = await UserModel.findOne({ _id: decodedRefreshToken._id, refreshToken });
+
+        if (!userWithRefreshToken) {
+          return NextResponse.json(
+            { success: false, message: 'Session expired, please login again' },
+            { status: 401 }
+          );
+        }
+
+        // Generate new access token
+        const { accessToken: newAccessToken } = await generateAccessAndRefreshToken(userWithRefreshToken?._id.toString());
+
+        // Set new access token in cookies
+        const response = NextResponse.json(
+          {
+            success: true,
+            user: {
+              _id: userWithRefreshToken._id,
+              username: userWithRefreshToken.username,
+              email: userWithRefreshToken.email,
+              isVerified: userWithRefreshToken.isVerified,
+            },
+          },
+          { status: 200 }
+        );
+
+        response.cookies.set('accessToken', newAccessToken, {
+          maxAge: 24 * 60 * 60 * 1000, // 1 day
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'strict',
+        });
+
+        return response;
+      } catch (error: any) {
+        console.error('Refresh token verification failed:', error);
+        return NextResponse.json(
+          { success: false, message: 'Session expired, please login again' },
+          { status: 401 }
+        );
+      }
+    }
 
     if (!user) {
       return NextResponse.json(

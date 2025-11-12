@@ -370,22 +370,22 @@ export default function Home() {
                 <button
                   onClick={() => setIsVeg(false)}
                   className={cn(
-                    "flex items-center gap-1.5 px-4 py-2 rounded-full transition-all",
+                    "flex items-center gap-1 px-4 py-2 rounded-full transition-all",
                     !isVeg ? "bg-amber-600 text-white shadow-sm" : "text-muted-foreground hover:text-foreground",
                   )}
                 >
-                  <Drumstick size={16} />
-                  <span className="font-medium">Non-Veg</span>
+                  {/* <Drumstick size={16} /> */}
+                  <span className="font-medium text-sm whitespace-nowrap">Non-Veg</span>
                 </button>
                 <button
                   onClick={() => setIsVeg(true)}
                   className={cn(
-                    "flex items-center gap-1.5 px-4 py-2 rounded-full transition-all",
+                    "flex items-center gap-1 px-4 py-2 rounded-full transition-all",
                     isVeg ? "bg-green-600 text-white shadow-sm" : "text-muted-foreground hover:text-foreground",
                   )}
                 >
-                  <Leaf size={16} />
-                  <span className="font-medium">Veg</span>
+                  {/* <Leaf size={16} /> */}
+                  <span className="font-medium text-sm">Veg</span>
                 </button>
               </div>
             </motion.div>
@@ -399,34 +399,34 @@ export default function Home() {
               className="overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide"
             >
               <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab} className="w-full">
-                <TabsList className="bg-background/80 dark:bg-muted/30 backdrop-blur-md border border-border/50 h-11">
-                  <TabsTrigger value="all" className="data-[state=active]:bg-rose-500 data-[state=active]:text-white">
+                <TabsList className="bg-background/80 dark:bg-muted/30 backdrop-blur-md border border-border/50 flex flex-wrap h-auto md:flex-nowrap md:h-11">
+                  <TabsTrigger value="all" className="data-[state=active]:bg-rose-500 data-[state=active]:text-white px-2 py-1 text-xs whitespace-normal md:px-3 md:py-1.5 md:text-sm md:whitespace-nowrap">
                     All
                   </TabsTrigger>
                   <TabsTrigger
                     value="breakfast"
-                    className="data-[state=active]:bg-rose-500 data-[state=active]:text-white"
+                    className="data-[state=active]:bg-rose-500 data-[state=active]:text-white px-2 py-1 text-xs whitespace-normal md:px-3 md:py-1.5 md:text-sm md:whitespace-nowrap"
                   >
                     Breakfast
                   </TabsTrigger>
-                  <TabsTrigger value="lunch" className="data-[state=active]:bg-rose-500 data-[state=active]:text-white">
+                  <TabsTrigger value="lunch" className="data-[state=active]:bg-rose-500 data-[state=active]:text-white px-2 py-1 text-xs whitespace-normal md:px-3 md:py-1.5 md:text-sm md:whitespace-nowrap">
                     Lunch
                   </TabsTrigger>
                   <TabsTrigger
                     value="dinner"
-                    className="data-[state=active]:bg-rose-500 data-[state=active]:text-white"
+                    className="data-[state=active]:bg-rose-500 data-[state=active]:text-white px-2 py-1 text-xs whitespace-normal md:px-3 md:py-1.5 md:text-sm md:whitespace-nowrap"
                   >
                     Dinner
                   </TabsTrigger>
                   <TabsTrigger
                     value="desserts"
-                    className="data-[state=active]:bg-rose-500 data-[state=active]:text-white"
+                    className="data-[state=active]:bg-rose-500 data-[state=active]:text-white px-2 py-1 text-xs whitespace-normal md:px-3 md:py-1.5 md:text-sm md:whitespace-nowrap"
                   >
                     Desserts
                   </TabsTrigger>
                   <TabsTrigger
                     value="drinks"
-                    className="data-[state=active]:bg-rose-500 data-[state=active]:text-white"
+                    className="data-[state=active]:bg-rose-500 data-[state=active]:text-white px-2 py-1 text-xs whitespace-normal md:px-3 md:py-1.5 md:text-sm md:whitespace-nowrap"
                   >
                     Drinks
                   </TabsTrigger>

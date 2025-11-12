@@ -1,26 +1,13 @@
-# Mobile Performance Optimization TODO
+# TODO: Implement Automatic Token Refresh in /api/user/me
 
-## High Priority
-- [ ] Create mobile detection hook (`hooks/use-mobile.tsx` already exists, verify usage)
-- [ ] Disable hover animations on mobile devices across all components
-- [ ] Reduce FloatingElements count on mobile (currently 15 elements with heavy animations)
-- [ ] Optimize RecipeCard hover effects for mobile
-- [ ] Optimize CategoryCard hover effects for mobile
+## Tasks
+- [x] Modify app/api/user/me/route.ts to handle access token expiration by checking refresh token
+- [x] Add logic to verify refresh token against database
+- [x] Generate new access token if refresh token is valid and set in cookies
+- [x] Return appropriate message if refresh token is invalid or missing (prompt login)
+- [ ] Test the endpoint to ensure no repeated errors and proper token refresh
 
-## Medium Priority
-- [ ] Implement lazy loading for recipe cards and category cards
-- [ ] Add mobile-specific image sizes and loading strategies
-- [ ] Reduce FeaturedRecipeSlider animations on mobile
-- [ ] Optimize hero section animations for mobile
-- [ ] Add conditional imports to reduce bundle size on mobile
-
-## Low Priority
-- [ ] Add performance monitoring (Lighthouse scores)
-- [ ] Implement virtual scrolling for recipe lists if needed
-- [ ] Optimize font loading for mobile
-- [ ] Add service worker for caching if applicable
-
-## Testing
-- [ ] Test on actual mobile devices
-- [ ] Measure Core Web Vitals improvements
-- [ ] Verify no functionality loss on mobile
+## Notes
+- Use existing helpers/auth.ts for token generation
+- Ensure database connection and user model are properly used
+- Handle JWT verification errors gracefully
