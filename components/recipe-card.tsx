@@ -133,7 +133,7 @@ export default function RecipeCard({
                 />
               ))}
             </div>
-            <span className="ml-2 text-sm font-medium">{rating.toFixed(1)}</span>
+            <span className="ml-2 text-sm font-medium">{rating?.toFixed(1)}</span>
           </div>
         </div>
       </motion.div>

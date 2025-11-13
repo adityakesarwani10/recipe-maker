@@ -7,22 +7,33 @@ type connectionObject = {
 const connection: connectionObject = {}
 
 export async function dbconnect(): Promise<void> {
-    //this if refers when the mongodb is already connected 
-    if(connection.isConnected) {
-        console.log("Connection already exist");
+    // Check if already connected (readyState 1 means connected)
+    if (connection.isConnected === 1) {
+        console.log("Connection already exists");
         return
     }
-    //This else refers when the mongodb is not connected and have to connect
-    else {
-        try {
-            const db = await mongoose.connect(process.env.MONGODB_URI || '', {})//{} this is for option for mongodb connection. This option will provide security like secureURL and httponly, etc.
 
-            connection.isConnected = db.connection.readyState
-            console.log("MongoDB readyState: ", db.connection.readyState)
+    try {
+        const db = await mongoose.connect(process.env.MONGODB_URI || '', {
+            // Add connection options for better reliability
+            serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+            socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
+            bufferCommands: false, // Disable mongoose buffering
+        })
+
+        connection.isConnected = db.connection.readyState
+        console.log("MongoDB readyState: ", db.connection.readyState)
+
+        // Wait for connection to be fully established
+        if (db.connection.readyState !== 1) {
+            await new Promise((resolve, reject) => {
+                db.connection.on('connected', resolve)
+                db.connection.on('error', reject)
+                setTimeout(() => reject(new Error('Connection timeout')), 10000)
+            })
         }
-        catch(err) {
-            console.log("Connection error occured: ", err)
-            process.exit(1)
-        }
+    } catch (err) {
+        console.log("Connection error occurred: ", err)
+        process.exit(1)
     }
 }

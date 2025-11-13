@@ -218,7 +218,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center">
         <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/80 to-black/70 z-10" />
-        <div className="absolute inset-0 bg-[url('/images/pattern-grid.svg')] opacity-10 z-10" />
+        <div className="absolute inset-0 bg-[url('/pattern-grid.svg')] opacity-10 z-10" />
 
         {/* Hero Background */}
         <div className="absolute inset-0 z-0">
@@ -605,7 +605,7 @@ export default function Home() {
           className="relative overflow-hidden rounded-3xl"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-rose-500 to-orange-500 z-0" />
-          <div className="absolute inset-0 bg-[url('/images/pattern.png')] opacity-10 z-0" />
+          <div className="absolute inset-0 bg-[url('/pattern.png')] opacity-10 z-0" />
 
           <motion.div
             initial={{ opacity: 0 }}

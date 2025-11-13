@@ -63,8 +63,8 @@ const LoginPage = () => {
         {/* Left Side - Image */}
         <div className="relative hidden md:block">
           <div className="absolute inset-0 bg-gradient-to-r from-rose-500 to-orange-500 z-0" />
-          <div className="absolute inset-0 bg-[url('/images/pattern.png')] opacity-10 z-0" />
-          <Image src="/images/login-image.jpg" alt="Login" fill className="object-cover mix-blend-overlay" />
+          <div className="absolute inset-0 bg-[url('/pattern.png')] opacity-10 z-0" />
+          <Image src="/sign-up.jpg" alt="Login" fill className="object-cover mix-blend-overlay" />
           <div className="absolute inset-0 flex flex-col items-center justify-center p-12 z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}

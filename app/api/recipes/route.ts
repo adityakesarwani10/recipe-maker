@@ -10,6 +10,8 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
     const category = searchParams.get('category');
+    const trending = searchParams.get('trending') === 'true';
+    const categories = searchParams.get('categories') === 'true';
 
     const skip = (page - 1) * limit;
 
@@ -17,9 +19,79 @@ export async function GET(request: NextRequest) {
     if (category) {
       query.category = category;
     }
+    // console.log('Query parameters:', { page, limit, category, trending, categories });
+    if (trending) {
+      query.rating = { $gte: 4.5 };
+    }
+
+    if(categories) {
+      // Fetch distinct categories with counts
+      const categoryStats = await RecipeModel.aggregate([
+        {
+          $group: {
+            _id: '$category',
+            count: { $sum: 1 },
+          }
+        },
+        {
+          $sort: { count: -1 }
+        }
+      ]);
+      // console.log('Category stats:', categoryStats);
+      return NextResponse.json({
+        success: true,
+        message: 'Categories fetched successfully',
+        data: categoryStats.map(stat => ({
+            name: stat._id,
+            count: stat.count,
+            avgRating: Math.round(stat.avgRating * 10) / 10
+        })),
+      });
+    }
+    
+    // If requesting categories aggregation
+    if (category) {
+      try {
+        const categoryStats = await RecipeModel.aggregate([
+          {
+            $match: {category: category?.charAt(0).toUpperCase() + category?.slice(1)}
+          },
+          // {
+          //   $group: {
+          //     _id: '$category',
+          //     count: { $sum: 1 },
+          //     // avgRating: { $avg: '$rating' }
+          //   }
+          // },
+          {
+            $sort: { count: -1 }
+          }
+        ]);
+        // console.log('Category stats:', categoryStats);
+        return NextResponse.json({
+          success: true,
+          message: 'Categories fetched successfully',
+          data: categoryStats,
+        });
+      } catch (aggregateError) {
+        console.error('Aggregation error:', aggregateError);
+        return NextResponse.json(
+          {
+            success: false,
+            message: 'Failed to aggregate categories',
+          },
+          { status: 500 }
+        );
+      }
+    }
+
+    let sortOption: any = { createdAt: -1 };
+    if (trending) {
+      sortOption = { rating: -1, createdAt: -1 };
+    }
 
     const recipes = await RecipeModel.find(query)
-      .sort({ createdAt: -1 })
+      .sort(sortOption)
       .skip(skip)
       .limit(limit)
       .select('-__v');
